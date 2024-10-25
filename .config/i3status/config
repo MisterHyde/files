@@ -1,0 +1,133 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 5
+}
+
+#order += "ipv6"
+#order += "xrandr"
+order += "timer"
+order += "process_status"
+#order += "audacious"
+order += "spotify"
+order += "volume_status"
+order += "disk /"
+order += "keyboard_layout"
+#order += "run_watch DHCP"
+order += "run_watch VPN"
+#order += "wireless _first_"
+order += "ethernet _first_"
+#order += "battery 0"
+order += "load"
+order += "arch_updates"
+#order += "systemtrays"
+order += "tztime local"
+order += "timer"
+
+timer {
+    time = 150
+    sound = '/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga'
+    format = 'Tea {timer}'
+}
+
+#volume master{
+		#format = "♪: %volume"
+		#format_muted = "♪: muted (%volume)"
+		#device = "default"
+		#mixer = "Master"
+		#mixer_idx = 0
+		#button_up = 4
+		#button_down = 5
+		#button_mute = 2
+#}
+
+timer {
+    time = 150
+    sound = '/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga'
+    format = 'Tea {timer}'
+}
+
+spotify {
+	button_next = 4
+	button_play_pause = 1
+	button_previous = 5
+	format = "{title} - {artist}"
+	format_down = "AAAHHH"
+}
+process_status {
+	process = "gcc"
+}
+
+keyboard_layout {
+	layouts = ['us', 'de', 'dvorak']
+}
+
+audacious {
+	cache_timeout = 60
+}
+
+systemtrays {
+	tray_output none
+}
+
+chkeymap {
+	on_click 1 = "exec changeKeys"
+	format = "exec setxkbmap -print | grep xkb_symbols | awk '{print $4}'"
+}
+
+xrandr {
+	force_on_start = "DVI0+HDMI0"
+	DVI0_pos = "left-of HDMI0"
+	DVI0_workspaces = "1,2"
+	HDMI0_workspaces = "3,4"
+}
+
+# Add mouse clicks to change volume
+volume_status {
+	button_up = 4
+	button_down = 5
+	button_mute = 2
+	on_click 1 = "exec pavucontrol"
+}
+arch_updates {
+	format = "UPD:{pacman}/{aur}"
+	hide_if_zero = True
+}
+ethernet _first_ {
+        # if you use %speed, i3status requires root privileges
+        format_up = "E: %ip"
+        format_down = "E: down"
+}
+
+battery 0 {
+        format = "%status %percentage %remaining"
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPN {
+        pidfile = "/var/run/vpnc/pid"
+}
+
+tztime local {
+		on_click 1 = "exec gsimplecal"
+        format = "%Y-%m-%d %H:%M"
+}
+
+load {
+        format = "%1min"
+}
+
+disk "/" {
+        format = "%avail"
+		on_click 1 = "exec pcmanfm /"
+}
