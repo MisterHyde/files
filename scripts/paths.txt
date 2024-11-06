@@ -1,3 +1,0 @@
-Name 				Path 								Description
-================ 	================================ 	==========================================
-chkeymap.py 		~/.i3/py3status/chkeymap.py 		Module for py3status 
