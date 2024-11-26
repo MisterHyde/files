@@ -22,9 +22,9 @@ set numberwidth=2
 set splitbelow
 set splitright
 set undofile
-set undodir=~/.vim/tmp//
-set backupdir=~/.vim/tmp//
-set directory=~/.vim/tmp//
+set undodir=~/.vim/tmp/
+set backupdir=~/.vim/tmp/
+set directory=~/.vim/tmp/
 set history=100
 set undolevels=1000
 set undoreload=10000
@@ -54,12 +54,8 @@ Plug 'vimwiki/vimwiki'
 
 " Install and use the following Plugs:
 Plug 'scrooloose/nerdcommenter'
-" Simplify motion in vim 
-Plug 'easymotion/vim-easymotion'
 " Show a diff using Vim its sign column.
 Plug 'mhinz/vim-signify'
-Plug 'tomtom/tlib_vim'
-Plug 'marcweber/vim-addon-mw-utils'
 Plug 'jezcope/vim-align'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -81,31 +77,23 @@ Plug 'mbbill/undotree'
 " Syntax checking plugin
 "Plug 'scrooloose/syntastic.git'
 Plug 'w0rp/ale'
-" Search and display information from arbitrary sources like files
-Plug 'Shougo/unite.vim'
 " Git in vim 
 Plug 'tpope/vim-fugitive'
 " Branche control
 Plug 'idanarye/vim-merginal' 
 " Completion script
 Plug 'Shougo/neocomplete.vim'
-" Spread nerdtree over all tabs
-"Bundle 'jistr/vim-nerdtree-tabs'
 " Controle your tabs
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " Surrond stuff with things
 Plug 'tpope/vim-surround'
 " Lets you use . to repeat some things like vim-surround
 Plug 'tpope/vim-repeat'
-" Tab to indent or autocomplete depending on context
-Plug 'ervandew/supertab'
 " Vim Markdown runtime files
 Plug 'tpope/vim-markdown'
 " Syntax for nginx
 Plug 'mutewinter/nginx.vim'
 " Colors
-Plug 'mrtazz/molokai.vim'
-Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
 " Use virtualenvs in the embeded python interpreter
 Plug 'jmcantrell/vim-virtualenv'
@@ -118,12 +106,8 @@ Plug 'junegunn/fzf.vim'
 " Ascii plantuml
 Plug 'scrooloose/vim-slumlord'
 Plug 'aklt/plantuml-syntax'
-" Debugger for vim
-Plug 'puremourning/vimspector'
 " Call tree
 Plug 'hari-rangarajan/CCTree'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'rust-lang/rust.vim'
 Plug 'chrisbra/csv.vim'
 
 call plug#end()
