@@ -110,6 +110,8 @@ Plug 'aklt/plantuml-syntax'
 Plug 'hari-rangarajan/CCTree'
 Plug 'chrisbra/csv.vim'
 
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
