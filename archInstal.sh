@@ -145,17 +145,8 @@ install_base_system () {
 install_additional_packages () {
     # Install i3
     arch-chroot /mnt pacman -Syu --noconfirm nvidia nvidia-utils xorg-server xorg-xinit \
-            i3-wm dmenu rofi alacritty
+            i3-wm rofi alacritty
     }
-
-#arch-chroot /mnt pacman -Sy --noconfirm alsa-utils \
-        #firefox chromium \
-        #ttf-bitstream-vera ttf-dejavu alsa-utils pulseaudio pulseaudio-mc openssh \
-        #bluez bluez-utils bluez-hid2hci noto-fonts \
-        #pulseaudio-bluetooth opendesktop-fonts \
-        #alacritty gnome-keyring grim otf-font-awesome \
-        #p7zip unrar pavucontrol clipman mutt blueman \
-        #dmenu blueman transmission-gtk base-devel
 
 # Add to login shell
 #if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
@@ -199,7 +190,7 @@ config_user_settings() {
     arch-chroot /mnt chown $username:$username /home/$username/systemMaintenance.fish
 
     # User configs from git
-    arch-chroot /mnt runuser -l $username -c "git clone https://github.com/MisterHyde/Files /mnt/home/$username/.files"
+    arch-chroot /mnt runuser -l $username -c "git clone https://github.com/MisterHyde/Files /home/$username/.files"
 }
 
 config_ssh_settings_container() {

@@ -50,7 +50,7 @@ filetype off
 call plug#begin()
 
 " Nice tool for private wiki
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
 
 " Install and use the following Plugs:
 Plug 'scrooloose/nerdcommenter'
