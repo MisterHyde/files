@@ -2,6 +2,11 @@ acpi
 arandr
 archlinux-xdg-menu
 awesome-terminal-fonts
+ttf-anonymous-pro
+adobe-source-code-pro-fonts
+ttf-hack
+woff2-font-awesome
+nerd-fonts
 dex
 dunst
 feh
@@ -11,7 +16,6 @@ gvfs-gphoto2
 gvfs-mtp
 gvfs-nfs
 gvfs-smb
-i3-wm
 i3blocks
 i3lock
 i3status
@@ -47,7 +51,6 @@ powerline-fonts
 alacritty
 chromium
 firefox
-firefox-noscript
 evolution
 bat
 pacman-contrib
