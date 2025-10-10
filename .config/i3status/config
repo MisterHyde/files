@@ -21,7 +21,7 @@ order += "volume_status"
 order += "disk /"
 order += "keyboard_layout"
 #order += "run_watch DHCP"
-order += "run_watch VPN"
+order += "read_file VPN"
 #order += "wireless _first_"
 order += "ethernet _first_"
 #order += "battery 0"
@@ -116,6 +116,13 @@ run_watch DHCP {
 
 run_watch VPN {
         pidfile = "/var/run/vpnc/pid"
+}
+read_file VPN {
+        path = "/proc/sys/net/ipv4/conf/nordlynx/"
+        path = "/sys/class/net/nordlynx/operstate"
+        format = "%title %content"
+        format_bad = "%title down"
+        max_characters = 8
 }
 
 tztime local {

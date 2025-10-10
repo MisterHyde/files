@@ -31,10 +31,12 @@ set undoreload=10000
 set ignorecase
 set smartcase
 " set wrap
-set tw=160
 set cursorline
 hi cursorline cterm=none
 hi cursorlinenr ctermfg=black
+set listchars=tab:▸\ ,trail:_,space:· list
+set colorcolumn=0
+set textwidth=0
 
 "TAGS
 set tags=tags
@@ -49,9 +51,6 @@ set nocompatible
 filetype off
 call plug#begin()
 
-" Nice tool for private wiki
-Plug 'vimwiki/vimwiki'
-
 " Install and use the following Plugs:
 Plug 'scrooloose/nerdcommenter'
 " Show a diff using Vim its sign column.
@@ -65,7 +64,6 @@ Plug 'majutsushi/tagbar'
 " Visualization and handling of vim undo history
 Plug 'mbbill/undotree'
 " Syntax completion; needs external programms see homepage
-"Plug 'Valloric/YouCompleteMe'
 "Plug 'rdnetto/YCM-Generator'
 " Using snippets
 " Plug 'sirver/ultisnips'
@@ -81,8 +79,6 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 " Branche control
 Plug 'idanarye/vim-merginal' 
-" Completion script
-Plug 'Shougo/neocomplete.vim'
 " Controle your tabs
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " Surrond stuff with things
@@ -109,6 +105,12 @@ Plug 'aklt/plantuml-syntax'
 " Call tree
 Plug 'hari-rangarajan/CCTree'
 Plug 'chrisbra/csv.vim'
+Plug 'goldfeld/vim-seek'
+Plug 'easymotion/vim-easymotion'
+" Completion script
+"Plug 'ycm-core/YouCompleteMe' {cd ~/.vim/plugged/YouCompleteMe/; .install.py --clangd-completer}
+Plug 'ycm-core/YouCompleteMe'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -139,8 +141,8 @@ let g:airline_theme="murmur"
 "let g:airline_theme="gruvbox"
 
 "AUTOCOMPLETION
-"autocmd FileType c set omnifunc=ccomplete#Complete
-"set cpt-=i
+autocmd FileType c set omnifunc=ccomplete#Complete
+set cpt-=i
 "let g:SuperTabDefaultCompletionType="context"
 "Snippets
 "let g:commentChar={'vim': '"', 'c': '//', 'cpp': '//', 'h': '//'}
@@ -205,6 +207,15 @@ if has('mouse')
 	endif
 endif
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VimTeX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimtex_view_method = 'zathura'
+let maplocalleader = ";"
+let g:vimtex_fold_enable = 1
+let g:vimtex_format_enable = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Copy paste system clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -227,6 +238,8 @@ let NERDTreeMinimalUI=0
 let NERDTreeDirArrows=1
 
 "SEARCH REPLACEMENT EASYMOTION
+let g:EasyMotion_smartcase = 1
+nmap t <Plug>(easymotion-t2)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
@@ -255,6 +268,9 @@ nnoremap <C-H> :wincmd h<CR>
 
 " Jump tags back with backspace
 nmap <backspace> <C-t>
+
+" Change seek 
+let g:SeekKey = '<Space>'
 
 inoremap jj <ESC>
 inoremap jk <ESC>
