@@ -173,7 +173,7 @@ bindcode $mod+Shift+90 	 move container to workspace  $ws10
 
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id xfce4-terminal
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -397,13 +397,9 @@ exec --no-startup-id dex --autostart --environment i3
 # start conky:
 #exec_always --no-startup-id conky
 
-# start a script to setup displays
-# uncomment the next line, use arandr to setup displays and save the file as monitor:
-exec --no-startup-id ~/.screenlayout/home.sh
-
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png
+# exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png
 
 # set powersavings for display:
 exec --no-startup-id xset s 480 dpms 600 600 600
@@ -492,11 +488,11 @@ set $darkbluetrans	#08052be6
 set $darkblue		#08052b
 set $lightblue		#5294e2
 set $urgentred		#e53935
-set $white		#ffffff
-set $black		#000000
-set $purple		#e345ff
+set $white		    #ffffff
+set $black		    #000000
+set $purple		    #e345ff
 set $darkgrey		#383c4a
-set $grey		#b0b5bd
+set $grey		    #b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
 
@@ -597,3 +593,6 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #exec --no-startup-id greenclip daemon>/dev/null
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
 #		-config ~/.config/rofi/rofidmenu.rasi
+# start a script to setup displays
+# uncomment the next line, use arandr to setup displays and save the file as monitor:
+exec --no-startu-id .screenlayout/screenlayout.sh
