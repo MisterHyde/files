@@ -595,4 +595,4 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
-exec --no-startu-id .screenlayout/screenlayout.sh
+exec --no-startup-id .screenlayout/screenlayout.sh

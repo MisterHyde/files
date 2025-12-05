@@ -22,7 +22,8 @@ set numberwidth=2
 set splitbelow
 set splitright
 set undofile
-"Does 'split(&rtp, ",")[0]' work?
+"Does split(&rtp, ",")[0] work?
+"Or g:vim_path = expand('<sfile>:p:h')
 set undodir=~/.vim/tmp/
 set backupdir=~/.vim/tmp/
 set directory=~/.vim/tmp/
