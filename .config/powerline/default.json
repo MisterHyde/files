@@ -1,17 +1,26 @@
 {
-    "segemnts": {
-        "right": [
-            { 
-                "function": "powerline.segments.common.time.date",
-                "name": "time",
-                "args": {
-                    "format": "%H:%M",
-                    "istime": true
-                }
-            },
+	"segments": {
+		"right": [
             {
-                "function": "powerline.segments.common.net.hostname"
-            }
-        ]
-    }
+                "function": "powerline.segments.common.vcx.branch()",
+                "name" : "branch"
+            },
+			{
+				"function": "powerline.segments.common.time.date",
+                "name" : "date"
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+				}
+			},
+			{
+				"function": "powerline.segments.common.net.hostname",
+				"name": "hostname"
+			}
+		]
+	}
 }

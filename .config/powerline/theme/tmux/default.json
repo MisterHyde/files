@@ -1,0 +1,26 @@
+{
+    "segments": {
+        "right": [
+            {
+                "function": "powerline.segments.common.vcs.branch",
+                "name" : "branch"
+            },
+            {
+                "function": "powerline.segments.common.time.date",
+                "name" : "date"
+            },
+            {
+                "function": "powerline.segments.common.time.date",
+                "name": "time",
+                "args": {
+                    "format": "%H:%M",
+                    "istime": true
+                }
+            },
+            {
+                "function": "powerline.segments.common.net.hostname",
+                "name": "hostname"
+            }
+        ]
+    }
+}
