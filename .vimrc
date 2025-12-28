@@ -284,6 +284,7 @@ let g:fzf_vim = {} " Initialize configuration dictionary
 
 let g:fzf_vim.preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
  
 
 " Make ripgrep only search file content not file name
