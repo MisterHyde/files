@@ -3,14 +3,14 @@
 base_dir=$(pwd)
 
 read -p "This will replace existing configs in .config/. Are you shure?" -n 1 -r
-echo 
+echo
 if [[ $REPLY =~ ^[Yy]$ ]] then
     # To lazy to create backups of already existing configs
     cp -as "$(pwd)/.config/" ~/
 fi
 
 read -p "Install packages for i3 installation?" -n 1 -r
-echo 
+echo
 if [[ $REPLY =~ ^[Yy]$ ]] then
     sudo pacman -Syu - < i3packages
 fi
@@ -36,9 +36,6 @@ exec fish $LOGIN_OPTION
 fi' >> ~/.bashrc
 
 
-echo "Enable numlock after logged in"
-echo "setleds -D +num" >> ~/.bash_profile
-
 echo "Download themes for rofi"
 mkdir -p ~/.local/share/rofi/themes
 curl https://raw.githubusercontent.com/Rinfella/rofi-themes/refs/heads/master/arc_dark_transparent_colors.rasi -o ~/.local/share/rofi/themes/arc_dark_transparent_colors.rasi
@@ -46,5 +43,3 @@ curl https://raw.githubusercontent.com/Rinfella/rofi-themes/refs/heads/master/ar
 echo "Download plugin manager for vim"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-mkdir ~/.vim/tmp
