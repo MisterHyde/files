@@ -138,7 +138,7 @@ set background=dark
  
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airlineconfiguration
+" Airline configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
@@ -146,10 +146,91 @@ if !exists('g:airline_symbols')
                let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
- 
 let g:airline_theme="murmur"
-"let g:airline_theme="gruvbox"
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.space = "\ua0"
+let g:airline_theme = "murmur"
+"let g:airline_theme = "gruvbox"
  
+" --- Single-letter mode indicator ---
+let g:airline_mode_map = {
+    \ '__'     : '-',
+    \ 'c'      : 'C',
+    \ 'i'      : 'I',
+    \ 'ic'     : 'I',
+    \ 'ix'     : 'I',
+    \ 'n'      : 'N',
+    \ 'ni'     : 'N',
+    \ 'no'     : 'N',
+    \ 'R'      : 'R',
+    \ 'Rv'     : 'R',
+    \ 's'      : 'S',
+    \ 'S'      : 'S',
+    \ "\<C-s>" : 'S',
+    \ 't'      : 'T',
+    \ 'v'      : 'V',
+    \ 'V'      : 'V',
+    \ "\<C-v>" : 'V',
+    \ 'multi'  : 'M',
+    \ }
+
+" --- Filename without path ---
+let g:airline_section_c = '%t'
+" --- Position: line/total and column, no percentage ---
+let g:airline_section_z = '%l/%L  %c'
+" --- ALE: colored background, line number only ---
+let g:airline#extensions#ale#enabled = 0
+
+" Called the moment ALE finishes — location list is guaranteed fresh here.
+" We walk it once, cache the first error/warning line in buffer vars,
+" then force a statusline redraw.
+function! s:CacheAleStatus()
+  let b:my_ale_error   = ''
+  let b:my_ale_warning = ''
+  for l:item in getloclist(0)
+    if b:my_ale_error ==# '' && get(l:item, 'type', '') ==# 'E'
+      let b:my_ale_error = 'L' . l:item.lnum
+    endif
+    if b:my_ale_warning ==# '' && get(l:item, 'type', '') ==# 'W'
+      let b:my_ale_warning = 'L' . l:item.lnum
+    endif
+    if b:my_ale_error !=# '' && b:my_ale_warning !=# ''
+      break  " found both, no need to keep looping
+    endif
+  endfor
+  redrawstatus!
+endfunction
+
+autocmd User ALELintPost call s:CacheAleStatus()
+
+" Airline just reads the pre-cached buffer variable — always fast, no timing issues
+
+function! AirlineAleErrors()
+  return get(b:, 'my_ale_error', '')
+endfunction
+
+ 
+
+function! AirlineAleWarnings()
+  return get(b:, 'my_ale_warning', '')
+endfunction
+
+ 
+
+function! s:AirlineInit()
+  call airline#parts#define_function('ale_errors',   'AirlineAleErrors')
+  call airline#parts#define_function('ale_warnings', 'AirlineAleWarnings')
+  let g:airline_section_error   = airline#section#create(['ale_errors'])
+  let g:airline_section_warning = airline#section#create(['ale_warnings'])
+endfunction
+
+autocmd User AirlineAfterInit call s:AirlineInit()
+
 "AUTOCOMPLETION
 "autocmd FileType c set omnifunc=ccomplete#Complete
 "set cpt-=i
@@ -300,7 +381,7 @@ command! -bang -nargs=* Rg
 
 " Customize Files
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'rg --files --hidden --follow --glob "!.git/*"', 'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
 " Git grep
 command! -bang -nargs=* GGrep
