@@ -14,3 +14,4 @@ sudo lostfiles
 echo 'All files with setuid or setgid bit. These shall be monitored
 find /usr/bin -perm "/u=s,g=s"
 sudo systemd-analyze security
+sudo paccache -rk1

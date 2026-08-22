@@ -294,7 +294,7 @@ let g:gutentags_plus_switch = 1
 " tmux stuff
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('mouse')
-               set mouse=a
+               set mouse=r
                if &term =~ "xterm" || &term =~ "screen"
                               " for some reason, doing this directly with 'set ttymouse=xterm2'
                               " doesn't work -- 'set ttymouse?' returns xterm2 but the mouse
