@@ -1,0 +1,182 @@
+/* Waybar style -- gruvbox dark, matching the dunst/kitty colours */
+
+@define-color bg        #282828;
+@define-color bg1       #3c3836;
+@define-color bg2       #504945;
+@define-color fg        #ebdbb2;
+@define-color gray      #928374;
+@define-color red       #fb4934;
+@define-color green     #b8bb26;
+@define-color yellow    #fabd2f;
+@define-color blue      #83a598;
+@define-color purple    #d3869b;
+@define-color aqua      #8ec07c;
+@define-color orange    #fe8019;
+
+* {
+    font-family: "FiraCode Nerd Font", "Noto Color Emoji", monospace;
+    font-size: 12px;
+    /* min-height: 0 everywhere is what lets the bar go under 32px: GTK
+       otherwise reserves the widget's natural height for every label/button */
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: alpha(@bg, 0.95);
+    color: @fg;
+    /* Bar height comes out of the content, not a height setting: it is
+       font-size (12px) + the 2px top/bottom margin of the module pills, which
+       lands at 20px. Shrink it further by lowering font-size or those margins;
+       a "height" key in config.jsonc or a min-height here can only make the
+       bar taller, never shorter. */
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+tooltip {
+    background: @bg;
+    border: 1px solid @bg2;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 2px;
+}
+
+/* ---------- workspaces (left) ---------- */
+
+#workspaces {
+    margin: 0 4px 0 6px;
+}
+
+#workspaces button {
+    min-height: 0;
+    min-width: 0;
+    padding: 0 7px;
+    margin: 2px 2px;
+    color: @gray;
+    background: @bg1;
+    border-radius: 6px;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+#workspaces button:hover {
+    background: @bg2;
+    color: @fg;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+/* order matters: the focused workspace carries BOTH .visible and .active, so
+   .active has to come last to win the cascade (same specificity) */
+
+#workspaces button.empty {
+    color: @gray;
+    background: transparent;
+}
+
+#workspaces button.visible {
+    color: @fg;
+    background: @bg2;
+}
+
+#workspaces button.active {
+    color: @bg;
+    background: @yellow;
+    font-weight: bold;
+}
+
+#workspaces button.special {
+    color: @bg;
+    background: @purple;
+}
+
+#workspaces button.urgent {
+    color: @bg;
+    background: @red;
+}
+
+/* ---------- window title (center) ---------- */
+
+#window {
+    color: @fg;
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+}
+
+/* ---------- right hand side modules ---------- */
+
+#custom-vpn,
+#network,
+#pulseaudio,
+#memory,
+#disk,
+#clock {
+    background: @bg1;
+    color: @fg;
+    padding: 0 8px;
+    margin: 2px 2px;
+    border-radius: 6px;
+}
+
+#clock {
+    margin-right: 6px;
+    color: @bg;
+    background: @blue;
+    font-weight: bold;
+}
+
+#custom-vpn.connected {
+    color: @bg;
+    background: @green;
+}
+
+#custom-vpn.disconnected {
+    color: @gray;
+}
+
+#network.disconnected,
+#network.linked {
+    color: @bg;
+    background: @red;
+}
+
+#pulseaudio.muted {
+    color: @bg;
+    background: @orange;
+}
+
+#memory.warning,
+#disk.warning {
+    color: @bg;
+    background: @yellow;
+}
+
+#memory.critical,
+#disk.critical {
+    color: @fg;
+    background: @red;
+}
+
+@keyframes blink-critical {
+    to {
+        color: @bg;
+        background: @red;
+    }
+}
+
+#memory.critical,
+#disk.critical {
+    animation: blink-critical 1s steps(2) infinite alternate;
+}

@@ -1,0 +1,152 @@
+// Waybar configuration for Hyprland
+// left:   Hyprland workspaces (per monitor)
+// center: title of the focused window
+// right:  VPN, network, audio, RAM, root disk, clock/calendar
+{
+    "layer": "top",
+    "position": "top",
+    // no "height": the bar is sized by the CSS (see style.css) so it can
+    // go below waybar's default 32px -- keep every min-height at 0 there
+    "spacing": 4,
+    "reload_style_on_change": true,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+        "custom/vpn",
+        "network",
+        "pulseaudio",
+        "memory",
+        "disk",
+        "clock"
+    ],
+
+    "hyprland/workspaces": {
+        // only the workspaces that actually exist are shown -- Hyprland drops a
+        // workspace as soon as its last window closes, and there is no
+        // "persistent-workspaces" here to pad the list out
+        "all-outputs": false,
+        "active-only": false,
+        "show-special": true,
+        "special-visible-only": true,
+        "sort-by": "number",
+        "format": "{name}",
+        // NOTE: values in "format-icons" are printed literally -- "{id}" and
+        // "{name}" are NOT expanded in there. To use icons instead of numbers,
+        // switch "format" to "{icon}" and map every workspace explicitly:
+        // "format": "{icon}",
+        // "format-icons": {
+        //     "1": "󰲠", "2": "󰲢", "3": "󰲤", "4": "󰲦", "5": "󰲨",
+        //     "6": "󰲪", "7": "󰲬", "8": "󰲮", "9": "󰲰", "10": "󰿬",
+        //     "special": "󰀻",
+        //     "default": "󰝥"
+        // },
+        "on-click": "activate",
+        // scrolling over the workspace list switches workspaces
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 90,
+        "separate-outputs": true,
+        "rewrite": {
+            "": "󰇄  desktop"
+        },
+        "tooltip-format": "{class}  —  {title}"
+    },
+
+    "custom/vpn": {
+        "exec": "~/.config/waybar/scripts/vpn-status.sh",
+        "return-type": "json",
+        "interval": 5,
+        "signal": 9,
+        "format": "{}",
+        "tooltip": true
+    },
+
+    "network": {
+        "interval": 5,
+        "format-ethernet": "󰈀  {ifname}",
+        "format-wifi": "  {essid} {signalStrength}%",
+        "format-linked": "󰈁  {ifname} (no IP)",
+        "format-disconnected": "󰲛  offline",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}\ngateway: {gwaddr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}/{cidr}\ngateway: {gwaddr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
+        "tooltip-format-disconnected": "no network connection"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  muted",
+        "format-bluetooth": "{icon}󰂯  {volume}%",
+        "format-bluetooth-muted": "󰝟󰂯  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "hands-free": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰦧",
+            "car": "󰄋",
+            "hdmi": "󰡁",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        // mouse wheel over the module changes the volume in 5% steps,
+        // capped at 100% so it can never overdrive the sink
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc}\nvolume: {volume}%  (scroll to change, click to mute)"
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "󰍛  {percentage}%",
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G  ({percentage}%)\nswap: {swapUsed:0.1f}G / {swapTotal:0.1f}G"
+    },
+
+    "disk": {
+        "path": "/",
+        "interval": 60,
+        "format": "󰋊  {percentage_used}%",
+        "states": {
+            "warning": 80,
+            "critical": 92
+        },
+        "tooltip-format": "/  —  {used} used of {total}  ({free} free)"
+    },
+
+    "clock": {
+        "interval": 1,
+        "format": "󰃭  {:%Y-%m-%d  %H:%M}",
+        "format-alt": "󰃭  {:%a %d %b %Y  %H:%M:%S}",
+        // hovering shows the current month with ISO week numbers on the left
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            // uncomment for German month/day names and a Monday-first week:
+            // "locale": "de_DE.UTF-8",
+            "format": {
+                "months":   "<span color='#ebdbb2'><b>{}</b></span>",
+                "weeks":    "<span color='#83a598'><b>W{}</b></span>",
+                "weekdays": "<span color='#fabd2f'><b>{}</b></span>",
+                "days":     "<span color='#ebdbb2'>{}</span>",
+                "today":    "<span color='#fb4934'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click": "mode",
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    }
+}
