@@ -13,7 +13,7 @@ function backup
     # Promt again here if the password differs for the remote repo
     set -x RESTIC_FROM_PASSWORD $pw
 
-	set -gx RESTIC_KEEP --keep-last 5 --keep-monthly 12
+	set -gx RESTIC_KEEP --keep-last 10 --keep-monthly 24
 
     echo env RESTIC_PASSWORD_COMMAND= restic -r $RESTIC_LOCAL_REPO backup --tag backups ~/backups/
     env RESTIC_PASSWORD_COMMAND= restic -r $RESTIC_LOCAL_REPO backup --tag backups ~/backups/

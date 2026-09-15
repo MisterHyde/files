@@ -32,7 +32,7 @@ for entry in */
         continue
     end
 
-    git --no-pager diff $before $after
+    git --no-pager diff --word-diff $before $after
 
     echo ""
     read -l -P "    Build $dir? [y/N] " answer
